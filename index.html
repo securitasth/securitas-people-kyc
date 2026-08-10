@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Securitas People KYC</title>
+
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 20px;
+      font-family: Arial, sans-serif;
+      background: #f5f6f7;
+      color: #222;
+    }
+
+    .card {
+      max-width: 500px;
+      margin: 40px auto;
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+    }
+
+    h1 {
+      text-align: center;
+      margin: 0 0 5px;
+    }
+
+    .subtitle {
+      text-align: center;
+      color: #777;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      margin-bottom: 6px;
+      font-weight: bold;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+
+    button {
+      width: 100%;
+      margin-top: 20px;
+      padding: 14px;
+      border: none;
+      border-radius: 8px;
+      background: #06c755;
+      color: white;
+      font-size: 17px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    #status {
+      text-align: center;
+      margin-top: 15px;
+      color: #666;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+
+    <h1>Securitas People</h1>
+
+    <div class="subtitle">
+      Employee Verification
+    </div>
+
+    <hr>
+
+    <h2 style="text-align:center;">
+      🔐 ยืนยันตัวตนพนักงาน
+    </h2>
+
+    <p style="text-align:center;">
+      กรุณากรอกข้อมูลให้ตรงกับข้อมูลที่ลงทะเบียนไว้กับบริษัท
+    </p>
+
+    <label>Employee ID</label>
+    <input id="employeeId" type="text" placeholder="เช่น TH10200146">
+
+    <label>Mobile</label>
+    <input id="mobile" type="tel" placeholder="เช่น 0813770134">
+
+    <button onclick="verifyEmployee()">
+      ยืนยันตัวตน
+    </button>
+
+    <div id="status">
+      กำลังเชื่อมต่อกับ LINE...
+    </div>
+
+  </div>
+
+<script>
+
+const LIFF_ID = "2011060843-6rwH2ZRD";
+
+async function initLIFF() {
+
+  try {
+
+    await liff.init({
+      liffId: LIFF_ID
+    });
+
+    if (!liff.isLoggedIn()) {
+      liff.login();
+      return;
+    }
+
+    document.getElementById("status").innerText =
+      "เชื่อมต่อ LINE สำเร็จ";
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById("status").innerText =
+      "ไม่สามารถเชื่อมต่อ LINE ได้";
+
+  }
+
+}
+
+
+async function verifyEmployee() {
+
+  const employeeId =
+    document.getElementById("employeeId").value.trim();
+
+  const mobile =
+    document.getElementById("mobile").value.trim();
+
+  if (!employeeId || !mobile) {
+
+    alert("กรุณากรอก Employee ID และ Mobile");
+
+    return;
+  }
+
+  document.getElementById("status").innerText =
+    "กำลังตรวจสอบข้อมูล...";
+
+  try {
+
+    const profile = await liff.getProfile();
+
+    const lineUserId = profile.userId;
+
+    /*
+      ขั้นต่อไปจะเชื่อมข้อมูลนี้กับ
+      Google Apps Script / Google Sheets
+    */
+
+    console.log({
+      employeeId: employeeId,
+      mobile: mobile,
+      lineUserId: lineUserId
+    });
+
+    document.getElementById("status").innerText =
+      "ได้รับข้อมูล LINE แล้ว";
+
+    alert(
+      "ข้อมูล LINE ถูกเชื่อมต่อแล้ว\n\n" +
+      "Employee ID: " + employeeId
+    );
+
+  } catch (error) {
+
+    console.error(error);
+
+    document.getElementById("status").innerText =
+      "เกิดข้อผิดพลาดในการเชื่อมต่อ LINE";
+
+  }
+
+}
+
+
+initLIFF();
+
+</script>
+
+</body>
+</html>
