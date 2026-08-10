@@ -2,7 +2,6 @@
 <html lang="th">
 
 <head>
-
   <meta charset="UTF-8">
 
   <meta
@@ -12,10 +11,7 @@
 
   <title>Securitas People KYC</title>
 
-  <!-- LINE LIFF SDK -->
-  <script
-    src="https://static.line-scdn.net/liff/edge/2/sdk.js">
-  </script>
+  <script src="https://static.line-scdn.net/liff/edge/2/sdk.js"></script>
 
   <style>
 
@@ -27,10 +23,7 @@
       margin: 0;
       padding: 20px;
       background: #f5f6f7;
-      font-family:
-        Arial,
-        "Noto Sans Thai",
-        sans-serif;
+      font-family: Arial, "Noto Sans Thai", sans-serif;
       color: #222;
     }
 
@@ -40,11 +33,10 @@
     }
 
     .card {
-      background: white;
+      background: #ffffff;
       border-radius: 24px;
       padding: 40px;
-      box-shadow:
-        0 10px 35px rgba(0,0,0,0.08);
+      box-shadow: 0 10px 35px rgba(0, 0, 0, 0.08);
     }
 
     .title {
@@ -95,14 +87,13 @@
       border-radius: 14px;
       font-size: 22px;
       margin-bottom: 25px;
-      background: white;
+      background: #fff;
     }
 
     input:focus {
       outline: none;
       border-color: #36c759;
-      box-shadow:
-        0 0 0 3px rgba(54,199,89,0.15);
+      box-shadow: 0 0 0 3px rgba(54, 199, 89, 0.15);
     }
 
     button {
@@ -204,10 +195,10 @@
       button {
         font-size: 21px;
       }
+
     }
 
   </style>
-
 </head>
 
 
@@ -247,6 +238,7 @@
         type="text"
         placeholder="เช่น TH10200146"
         autocomplete="off"
+        autocapitalize="characters"
       >
 
 
@@ -262,11 +254,11 @@
       >
 
 
-      <!-- Verify -->
+      <!-- Verify Button -->
 
       <button
         id="verifyButton"
-        onclick="verify()"
+        onclick="verifyEmployee()"
       >
         ยืนยันตัวตน
       </button>
@@ -305,16 +297,32 @@
 
 <script>
 
-  // ==========================================
-  // LIFF ID
-  // ==========================================
+  /*
+   * ============================================
+   * LIFF
+   * ============================================
+   */
 
-  const LIFF_ID = '2011060843-6rwH2ZRD';
+  const LIFF_ID = "2011060843-6rwH2ZRD";
 
 
-  // ==========================================
-  // เริ่มต้น LIFF
-  // ==========================================
+  /*
+   * ============================================
+   * GOOGLE APPS SCRIPT API
+   * ============================================
+   *
+   * URL จาก Deployment ของคุณ
+   */
+
+  const API_URL =
+    "https://script.google.com/macros/s/AKfycbzVYalCkM0zX5gV4B9kuQRPOrApCn6wXZnozlkH8waNPVbuaB8uLZNK_4DWhj2hwto/exec";
+
+
+  /*
+   * ============================================
+   * เริ่ม LIFF
+   * ============================================
+   */
 
   async function initLIFF() {
 
@@ -324,169 +332,240 @@
         liffId: LIFF_ID
       });
 
-      console.log('LIFF initialized');
+      console.log("LIFF initialized");
 
     } catch (error) {
 
-      console.error('LIFF initialization error:', error);
+      console.log("LIFF init error:", error);
 
     }
 
   }
 
 
-  // ==========================================
-  // ตรวจสอบข้อมูล
-  // ==========================================
+  /*
+   * ============================================
+   * ตรวจสอบพนักงาน
+   * ============================================
+   */
 
-  function verify() {
+  function verifyEmployee() {
 
     const employeeId =
       document
-        .getElementById('employeeId')
+        .getElementById("employeeId")
         .value
         .trim()
         .toUpperCase();
 
+
     const dob =
       document
-        .getElementById('dob')
+        .getElementById("dob")
         .value
         .trim();
 
 
-    const status =
-      document.getElementById('status');
-
     const button =
-      document.getElementById('verifyButton');
+      document.getElementById("verifyButton");
+
+
+    const status =
+      document.getElementById("status");
+
 
     const result =
-      document.getElementById('result');
+      document.getElementById("result");
+
 
     const employeeName =
-      document.getElementById('employeeName');
-
-
-    // reset
-
-    status.className = 'status';
-
-    status.textContent = '';
-
-    result.style.display = 'none';
-
-
-    // ตรวจ Employee ID
-
-    if (!employeeId) {
-
-      status.className =
-        'status error';
-
-      status.textContent =
-        'กรุณากรอก Employee ID';
-
-      return;
-    }
-
-
-    // ตรวจวันเกิด
-
-    if (!dob) {
-
-      status.className =
-        'status error';
-
-      status.textContent =
-        'กรุณาเลือกวันเดือนปีเกิด';
-
-      return;
-    }
-
-
-    // Loading
-
-    button.disabled = true;
-
-    status.className =
-      'status loading';
-
-    status.textContent =
-      'กำลังตรวจสอบข้อมูล...';
+      document.getElementById("employeeName");
 
 
     /*
-     * เรียก Google Apps Script
+     * Reset
      */
 
-    google.script.run
-      .withSuccessHandler(function(response) {
+    status.className = "status";
 
-        button.disabled = false;
+    status.textContent = "";
 
-
-        if (response.success) {
-
-          status.className =
-            'status success';
-
-          status.textContent =
-            response.message;
+    result.style.display = "none";
 
 
-          employeeName.textContent =
-            'ชื่อ: ' + response.name;
+    /*
+     * ตรวจ Employee ID
+     */
+
+    if (!employeeId) {
+
+      status.className = "status error";
+
+      status.textContent =
+        "กรุณากรอก Employee ID";
+
+      return;
+    }
 
 
-          result.style.display =
-            'block';
+    /*
+     * ตรวจวันเกิด
+     */
+
+    if (!dob) {
+
+      status.className = "status error";
+
+      status.textContent =
+        "กรุณาเลือกวันเดือนปีเกิด";
+
+      return;
+    }
 
 
-        } else {
+    /*
+     * Loading
+     */
 
-          status.className =
-            'status error';
+    button.disabled = true;
 
-          status.textContent =
-            response.message;
+    status.className = "status loading";
 
-        }
+    status.textContent =
+      "กำลังตรวจสอบข้อมูล...";
 
-      })
-      .withFailureHandler(function(error) {
 
-        button.disabled = false;
+    /*
+     * แปลงวันเกิด
+     *
+     * จาก:
+     * 1991-07-15
+     *
+     * เป็น:
+     * 15/07/1991
+     */
+
+    const dateParts = dob.split("-");
+
+    const year = dateParts[0];
+
+    const month = dateParts[1];
+
+    const day = dateParts[2];
+
+    const formattedDob =
+      day + "/" + month + "/" + year;
+
+
+    /*
+     * สร้าง URL
+     */
+
+    const url =
+      API_URL +
+      "?employeeId=" +
+      encodeURIComponent(employeeId) +
+      "&dob=" +
+      encodeURIComponent(formattedDob) +
+      "&callback=kycCallback";
+
+
+    /*
+     * JSONP
+     */
+
+    window.kycCallback = function(response) {
+
+      button.disabled = false;
+
+
+      if (response.success) {
 
         status.className =
-          'status error';
+          "status success";
 
         status.textContent =
-          'เกิดข้อผิดพลาด กรุณาลองใหม่';
+          response.message;
 
-        console.error(error);
 
-      })
-      .verifyEmployee(
-        employeeId,
-        dob
-      );
+        employeeName.textContent =
+          "ชื่อ: " + response.name;
+
+
+        result.style.display =
+          "block";
+
+
+      } else {
+
+        status.className =
+          "status error";
+
+        status.textContent =
+          response.message;
+
+      }
+
+
+      /*
+       * ลบ script หลังใช้งาน
+       */
+
+      const scripts =
+        document.querySelectorAll(
+          'script[data-kyc="true"]'
+        );
+
+      scripts.forEach(function(script) {
+        script.remove();
+      });
+
+    };
+
+
+    /*
+     * เรียก API
+     */
+
+    const script =
+      document.createElement("script");
+
+    script.src = url;
+
+    script.dataset.kyc = "true";
+
+    script.onerror = function() {
+
+      button.disabled = false;
+
+      status.className =
+        "status error";
+
+      status.textContent =
+        "ไม่สามารถเชื่อมต่อระบบตรวจสอบได้";
+
+    };
+
+
+    document.body.appendChild(script);
 
   }
 
 
-  // ==========================================
-  // Enter เพื่อยืนยัน
-  // ==========================================
+  /*
+   * ============================================
+   * กด Enter
+   * ============================================
+   */
 
   document
-    .getElementById('employeeId')
+    .getElementById("employeeId")
     .addEventListener(
-      'keydown',
+      "keydown",
       function(event) {
 
-        if (event.key === 'Enter') {
-          verify();
+        if (event.key === "Enter") {
+          verifyEmployee();
         }
 
       }
@@ -494,25 +573,28 @@
 
 
   document
-    .getElementById('dob')
+    .getElementById("dob")
     .addEventListener(
-      'keydown',
+      "keydown",
       function(event) {
 
-        if (event.key === 'Enter') {
-          verify();
+        if (event.key === "Enter") {
+          verifyEmployee();
         }
 
       }
     );
 
 
-  // เริ่ม LIFF
+  /*
+   * ============================================
+   * Start LIFF
+   * ============================================
+   */
 
   initLIFF();
 
 </script>
 
 </body>
-
 </html>
