@@ -12,353 +12,199 @@
 
   <title>Securitas People KYC</title>
 
-
   <style>
 
     * {
       box-sizing: border-box;
     }
 
-
     body {
-
       margin: 0;
       padding: 40px 20px;
-
-      font-family:
-        Arial,
-        "Noto Sans Thai",
-        sans-serif;
-
+      font-family: Arial, "Noto Sans Thai", sans-serif;
       background: #f5f6f7;
-
       color: #222;
-
     }
-
 
     .card {
-
       width: 100%;
       max-width: 1080px;
-
       margin: 0 auto;
-
       padding: 42px 50px 55px;
-
       background: #ffffff;
-
       border-radius: 24px;
-
-      box-shadow:
-        0 5px 25px rgba(0,0,0,0.08);
-
+      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
     }
-
 
     .title {
-
       text-align: center;
-
       font-size: 58px;
-
       font-weight: 700;
-
       margin-bottom: 8px;
-
     }
-
 
     .subtitle {
-
       text-align: center;
-
       font-size: 30px;
-
       color: #667085;
-
       margin-bottom: 35px;
-
     }
-
 
     .line {
-
       height: 1px;
-
       background: #999;
-
       margin-bottom: 35px;
-
     }
-
 
     .heading {
-
       text-align: center;
-
       font-size: 42px;
-
       font-weight: 700;
-
       margin-bottom: 25px;
-
     }
-
 
     .description {
-
       text-align: center;
-
       font-size: 25px;
-
       color: #555;
-
       margin-bottom: 45px;
-
     }
-
 
     label {
-
       display: block;
-
       font-size: 30px;
-
       font-weight: 700;
-
       margin-bottom: 12px;
-
     }
-
 
     input {
-
       width: 100%;
-
       height: 92px;
-
       padding: 15px 28px;
-
       margin-bottom: 30px;
-
       border: 1px solid #c9c9c9;
-
       border-radius: 18px;
-
       background: #fff;
-
       font-size: 30px;
-
       color: #222;
-
       outline: none;
-
     }
-
 
     input:focus {
-
       border-color: #36c94a;
-
-      box-shadow:
-        0 0 0 3px rgba(54,201,74,0.12);
-
+      box-shadow: 0 0 0 3px rgba(54, 201, 74, 0.12);
     }
-
 
     button {
-
       width: 100%;
-
       height: 95px;
-
       border: none;
-
       border-radius: 18px;
-
       background: #45c94f;
-
       color: white;
-
       font-size: 32px;
-
       font-weight: 700;
-
       cursor: pointer;
-
     }
-
 
     button:hover {
-
       background: #38b943;
-
     }
-
 
     button:disabled {
-
       background: #aab0b4;
-
       cursor: not-allowed;
-
     }
-
 
     .status {
-
       text-align: center;
-
       font-size: 25px;
-
       font-weight: 600;
-
       margin-top: 30px;
-
       min-height: 35px;
-
     }
-
-
-    .result {
-
-      display: none;
-
-      margin-top: 25px;
-
-      padding: 25px;
-
-      text-align: center;
-
-      border-radius: 16px;
-
-      background: #e9f9ec;
-
-      border: 1px solid #6bd276;
-
-    }
-
-
-    .result-title {
-
-      font-size: 28px;
-
-      font-weight: 700;
-
-      color: #16852a;
-
-      margin-bottom: 10px;
-
-    }
-
-
-    .employee-name {
-
-      font-size: 30px;
-
-      font-weight: 700;
-
-      color: #222;
-
-    }
-
-
-    .error {
-
-      color: #d93025;
-
-    }
-
 
     .success {
-
       color: #16852a;
-
     }
 
+    .error {
+      color: #d93025;
+    }
+
+    .result {
+      display: none;
+      margin-top: 25px;
+      padding: 25px;
+      text-align: center;
+      border-radius: 16px;
+      background: #e9f9ec;
+      border: 1px solid #6bd276;
+    }
+
+    .result-title {
+      font-size: 28px;
+      font-weight: 700;
+      color: #16852a;
+      margin-bottom: 10px;
+    }
+
+    .employee-name {
+      font-size: 30px;
+      font-weight: 700;
+      color: #222;
+    }
 
     @media (max-width: 700px) {
 
       body {
-
         padding: 15px;
-
       }
-
 
       .card {
-
         padding: 30px 25px 40px;
-
         border-radius: 18px;
-
       }
-
 
       .title {
-
         font-size: 38px;
-
       }
-
 
       .subtitle {
-
         font-size: 21px;
-
       }
-
 
       .heading {
-
         font-size: 30px;
-
       }
-
 
       .description {
-
         font-size: 19px;
-
         line-height: 1.5;
-
       }
-
 
       label {
-
         font-size: 23px;
-
       }
-
 
       input {
-
         height: 70px;
-
         font-size: 22px;
-
         padding: 12px 18px;
-
       }
-
 
       button {
-
         height: 72px;
-
         font-size: 24px;
-
       }
-
 
       .status {
-
         font-size: 20px;
-
       }
 
+      .employee-name {
+        font-size: 24px;
+      }
     }
 
   </style>
@@ -368,27 +214,21 @@
 
 <body>
 
-
   <div class="card">
-
 
     <div class="title">
       Securitas People
     </div>
 
-
     <div class="subtitle">
       Employee Verification
     </div>
 
-
     <div class="line"></div>
-
 
     <div class="heading">
       🔐 ยืนยันตัวตนพนักงาน
     </div>
-
 
     <div class="description">
       กรุณากรอกข้อมูลให้ตรงกับข้อมูลที่ลงทะเบียนไว้กับบริษัท
@@ -400,7 +240,6 @@
     <label for="employeeId">
       Employee ID
     </label>
-
 
     <input
       id="employeeId"
@@ -417,7 +256,6 @@
       วันเดือนปีเกิด
     </label>
 
-
     <input
       id="dob"
       type="date"
@@ -428,6 +266,7 @@
 
     <button
       id="verifyButton"
+      type="button"
       onclick="verifyEmployee()"
     >
       ยืนยันตัวตน / Verify Identity
@@ -453,7 +292,6 @@
         ✅ ยืนยันตัวตนสำเร็จ
       </div>
 
-
       <div
         id="employeeName"
         class="employee-name"
@@ -461,29 +299,28 @@
 
     </div>
 
-
   </div>
 
 
   <script>
 
     /*
-     * Google Apps Script Web App
-     *
-     * ใช้ URL Deployment ของ Apps Script
+     * =====================================================
+     * GOOGLE APPS SCRIPT WEB APP URL
+     * =====================================================
      */
 
     const GOOGLE_SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbzVYalCkM0zX5gV4B9kuQRPO rApCn6wXZnozlkH8waNPVbuaB8uLZNK_4DWhj2hwto/exec"
-      .replace(" ", "");
+      "https://script.google.com/macros/s/AKfycbzVYaICkM0zX5gV4B9kuQRPOrApCn6wXZnozIkH8waNPVbuaB8uLZNK_4DWhj2hwto/exec";
 
 
     /*
-     * ตรวจสอบ Employee ID + วันเกิด
+     * =====================================================
+     * VERIFY EMPLOYEE
+     * =====================================================
      */
 
     function verifyEmployee() {
-
 
       const employeeId =
         document
@@ -520,16 +357,14 @@
        */
 
       status.textContent = "";
-
       status.className = "status";
 
       result.style.display = "none";
-
       employeeName.textContent = "";
 
 
       /*
-       * ตรวจข้อมูลเบื้องต้น
+       * ตรวจ Employee ID
        */
 
       if (!employeeId) {
@@ -541,9 +376,12 @@
           "status error";
 
         return;
-
       }
 
+
+      /*
+       * ตรวจวันเกิด
+       */
 
       if (!dob) {
 
@@ -554,12 +392,11 @@
           "status error";
 
         return;
-
       }
 
 
       /*
-       * ป้องกันการกดซ้ำ
+       * ป้องกันการกดปุ่มซ้ำ
        */
 
       button.disabled = true;
@@ -580,27 +417,24 @@
        */
 
       const callbackName =
-        "kycCallback_" +
-        Date.now();
+        "kycCallback_" + Date.now();
 
 
       /*
-       * สร้าง function สำหรับรับผลจาก Apps Script
+       * =================================================
+       * รับผลจาก Google Apps Script
+       * =================================================
        */
 
       window[callbackName] =
         function(data) {
 
-
           /*
-           * ลบ script ที่สร้างขึ้น
+           * ลบ script เดิม
            */
 
           const oldScript =
-            document.getElementById(
-              "kyc-jsonp"
-            );
-
+            document.getElementById("kyc-jsonp");
 
           if (oldScript) {
             oldScript.remove();
@@ -618,14 +452,13 @@
 
 
           /*
-           * ตรวจผล
+           * ตรวจผลลัพธ์
            */
 
           if (
             data &&
             data.success === true
           ) {
-
 
             status.textContent =
               data.message ||
@@ -635,10 +468,22 @@
               "status success";
 
 
-            employeeName.textContent =
-              data.name
-                ? "ชื่อพนักงาน: " + data.name
-                : "";
+            /*
+             * แสดงชื่อพนักงาน
+             */
+
+            if (data.name) {
+
+              employeeName.textContent =
+                "ชื่อพนักงาน: " + data.name;
+
+            } else {
+
+              employeeName.textContent =
+                "ยืนยัน Employee ID: " +
+                data.employeeId;
+
+            }
 
 
             result.style.display =
@@ -647,17 +492,13 @@
 
           } else {
 
-
             status.textContent =
-              data &&
-              data.message
+              data && data.message
                 ? data.message
-                : "ไม่สามารถตรวจสอบข้อมูลได้";
-
+                : "ไม่พบข้อมูลที่ตรงกัน";
 
             status.className =
               "status error";
-
 
           }
 
@@ -681,7 +522,9 @@
 
 
       /*
+       * =================================================
        * สร้าง URL สำหรับ JSONP
+       * =================================================
        */
 
       const url =
@@ -695,10 +538,7 @@
 
 
       /*
-       * สร้าง script tag
-       *
-       * วิธีนี้ใช้เรียก Apps Script
-       * จาก GitHub Pages โดยไม่ติด CORS
+       * สร้าง script
        */
 
       const script =
@@ -714,18 +554,14 @@
 
 
       /*
-       * ถ้าเชื่อมต่อไม่ได้
+       * กรณีเชื่อมต่อไม่ได้
        */
 
       script.onerror =
         function() {
 
-
           const oldScript =
-            document.getElementById(
-              "kyc-jsonp"
-            );
-
+            document.getElementById("kyc-jsonp");
 
           if (oldScript) {
             oldScript.remove();
@@ -761,7 +597,7 @@
 
 
       /*
-       * ส่งคำขอ
+       * ส่งคำขอไป Google Apps Script
        */
 
       document.body.appendChild(script);
@@ -769,7 +605,6 @@
     }
 
   </script>
-
 
 </body>
 
