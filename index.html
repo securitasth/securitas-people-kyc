@@ -1,209 +1,593 @@
 <!DOCTYPE html>
 <html lang="th">
-
 <head>
 
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
   >
 
   <title>Securitas People KYC</title>
 
   <style>
 
+    /* =========================================
+       RESET
+    ========================================= */
+
     * {
       box-sizing: border-box;
     }
 
+
+    html,
     body {
       margin: 0;
-      padding: 40px 20px;
-      font-family: Arial, "Noto Sans Thai", sans-serif;
-      background: #f5f6f7;
-      color: #222;
+      padding: 0;
+      width: 100%;
+      min-height: 100%;
     }
+
+
+    body {
+      font-family:
+        Arial,
+        "Noto Sans Thai",
+        "Tahoma",
+        sans-serif;
+
+      background: #f4f6f8;
+      color: #222;
+
+      -webkit-font-smoothing: antialiased;
+    }
+
+
+    /* =========================================
+       PAGE
+    ========================================= */
+
+    .page {
+      width: 100%;
+      min-height: 100vh;
+
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+
+      padding: 24px 16px 40px;
+    }
+
+
+    /* =========================================
+       CARD
+    ========================================= */
 
     .card {
       width: 100%;
-      max-width: 1080px;
-      margin: 0 auto;
-      padding: 42px 50px 55px;
+      max-width: 760px;
+
       background: #ffffff;
+
       border-radius: 24px;
-      box-shadow: 0 5px 25px rgba(0, 0, 0, 0.08);
+
+      padding: 38px 42px 42px;
+
+      box-shadow:
+        0 8px 30px rgba(0, 0, 0, 0.08);
     }
+
+
+    /* =========================================
+       HEADER
+    ========================================= */
 
     .title {
       text-align: center;
-      font-size: 58px;
+
+      font-size: 46px;
       font-weight: 700;
+
+      line-height: 1.15;
+
+      color: #111;
+
       margin-bottom: 8px;
     }
 
+
     .subtitle {
       text-align: center;
-      font-size: 30px;
-      color: #667085;
-      margin-bottom: 35px;
+
+      font-size: 25px;
+
+      line-height: 1.3;
+
+      color: #687386;
+
+      margin-bottom: 28px;
     }
 
+
     .line {
+      width: 100%;
       height: 1px;
-      background: #999;
-      margin-bottom: 35px;
+
+      background: #a8a8a8;
+
+      margin-bottom: 34px;
     }
+
+
+    /* =========================================
+       HEADING
+    ========================================= */
 
     .heading {
       text-align: center;
-      font-size: 42px;
+
+      font-size: 34px;
       font-weight: 700;
-      margin-bottom: 25px;
+
+      line-height: 1.3;
+
+      margin-bottom: 18px;
+
+      color: #111;
     }
+
 
     .description {
       text-align: center;
-      font-size: 25px;
+
+      font-size: 21px;
+
+      line-height: 1.55;
+
       color: #555;
-      margin-bottom: 45px;
+
+      margin-bottom: 34px;
     }
+
+
+    /* =========================================
+       FORM
+    ========================================= */
+
+    .form-group {
+      margin-bottom: 24px;
+    }
+
 
     label {
       display: block;
-      font-size: 30px;
+
+      font-size: 22px;
+
       font-weight: 700;
-      margin-bottom: 12px;
+
+      line-height: 1.3;
+
+      margin-bottom: 10px;
+
+      color: #171717;
     }
+
+
+    /* =========================================
+       INPUT
+    ========================================= */
 
     input {
+      display: block;
+
       width: 100%;
-      height: 92px;
-      padding: 15px 28px;
-      margin-bottom: 30px;
+
+      height: 64px;
+
+      padding: 0 18px;
+
       border: 1px solid #c9c9c9;
-      border-radius: 18px;
-      background: #fff;
-      font-size: 30px;
+
+      border-radius: 16px;
+
+      background: #ffffff;
+
       color: #222;
+
+      font-family: inherit;
+
+      font-size: 20px;
+
+      line-height: 1;
+
       outline: none;
+
+      -webkit-appearance: none;
+      appearance: none;
+
+      transition:
+        border-color 0.15s ease,
+        box-shadow 0.15s ease;
     }
+
+
+    input::placeholder {
+      color: #8a8a8a;
+    }
+
 
     input:focus {
-      border-color: #36c94a;
-      box-shadow: 0 0 0 3px rgba(54, 201, 74, 0.12);
+      border-color: #3bc84a;
+
+      box-shadow:
+        0 0 0 3px rgba(59, 200, 74, 0.12);
     }
 
-    button {
-      width: 100%;
-      height: 95px;
-      border: none;
-      border-radius: 18px;
-      background: #45c94f;
-      color: white;
-      font-size: 32px;
-      font-weight: 700;
+
+    /* =========================================
+       DATE INPUT
+    ========================================= */
+
+    input[type="date"] {
+      text-align: left;
+
+      padding-left: 18px;
+      padding-right: 14px;
+
+      color: #222;
+    }
+
+
+    /*
+      ป้องกัน iPhone บางรุ่นจัดวันที่กึ่งกลาง
+      และทำให้ช่องวันเกิดดูสูงเกินไป
+    */
+
+    input[type="date"]::-webkit-date-and-time-value {
+      text-align: left;
+      min-height: 1.2em;
+    }
+
+
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      width: 24px;
+      height: 24px;
+
+      margin-left: 8px;
+
       cursor: pointer;
+
+      opacity: 0.9;
     }
 
-    button:hover {
-      background: #38b943;
+
+    /* =========================================
+       BUTTON
+    ========================================= */
+
+    #verifyButton {
+      width: 100%;
+
+      min-height: 64px;
+
+      margin-top: 6px;
+
+      padding: 12px 18px;
+
+      border: none;
+
+      border-radius: 16px;
+
+      background: #3bc84a;
+
+      color: #ffffff;
+
+      font-family: inherit;
+
+      font-size: 22px;
+
+      font-weight: 700;
+
+      line-height: 1.3;
+
+      cursor: pointer;
+
+      -webkit-tap-highlight-color: transparent;
+
+      transition:
+        transform 0.1s ease,
+        background 0.15s ease;
     }
 
-    button:disabled {
-      background: #aab0b4;
-      cursor: not-allowed;
+
+    #verifyButton:hover {
+      background: #31b940;
     }
+
+
+    #verifyButton:active {
+      transform: scale(0.99);
+    }
+
+
+    #verifyButton:disabled {
+      background: #a8dbaa;
+
+      cursor: wait;
+
+      transform: none;
+    }
+
+
+    /* =========================================
+       STATUS
+    ========================================= */
 
     .status {
+      display: none;
+
       text-align: center;
-      font-size: 25px;
+
+      margin-top: 22px;
+
+      font-size: 20px;
+
       font-weight: 600;
-      margin-top: 30px;
-      min-height: 35px;
+
+      line-height: 1.5;
     }
 
-    .success {
-      color: #16852a;
+
+    .status.success {
+      display: block;
+
+      color: #168b2c;
     }
 
-    .error {
-      color: #d93025;
+
+    .status.error {
+      display: block;
+
+      color: #d92d20;
     }
+
+
+    .status.loading {
+      display: block;
+
+      color: #666;
+    }
+
+
+    /* =========================================
+       RESULT
+    ========================================= */
 
     .result {
       display: none;
-      margin-top: 25px;
-      padding: 25px;
+
+      margin-top: 26px;
+
+      padding: 26px 20px;
+
+      border: 2px solid #58d36a;
+
+      border-radius: 18px;
+
+      background: #effcf1;
+
       text-align: center;
-      border-radius: 16px;
-      background: #e9f9ec;
-      border: 1px solid #6bd276;
     }
+
+
+    .result.show {
+      display: block;
+    }
+
 
     .result-title {
-      font-size: 28px;
+      font-size: 25px;
+
       font-weight: 700;
-      color: #16852a;
-      margin-bottom: 10px;
+
+      line-height: 1.4;
+
+      color: #168b2c;
+
+      margin-bottom: 16px;
     }
 
+
     .employee-name {
-      font-size: 30px;
+      font-size: 24px;
+
       font-weight: 700;
+
+      line-height: 1.5;
+
       color: #222;
     }
 
-    @media (max-width: 700px) {
 
-      body {
-        padding: 15px;
+    /* =========================================
+       MOBILE
+    ========================================= */
+
+    @media (max-width: 600px) {
+
+      .page {
+        padding: 12px 10px 28px;
       }
+
 
       .card {
-        padding: 30px 25px 40px;
-        border-radius: 18px;
+        max-width: 100%;
+
+        padding: 28px 22px 30px;
+
+        border-radius: 20px;
       }
+
 
       .title {
-        font-size: 38px;
+        font-size: 34px;
       }
+
 
       .subtitle {
-        font-size: 21px;
+        font-size: 20px;
+
+        margin-bottom: 22px;
       }
 
+
+      .line {
+        margin-bottom: 28px;
+      }
+
+
       .heading {
+        font-size: 28px;
+
+        margin-bottom: 14px;
+      }
+
+
+      .description {
+        font-size: 18px;
+
+        line-height: 1.5;
+
+        margin-bottom: 28px;
+      }
+
+
+      label {
+        font-size: 20px;
+
+        margin-bottom: 9px;
+      }
+
+
+      .form-group {
+        margin-bottom: 20px;
+      }
+
+
+      input {
+        height: 58px;
+
+        border-radius: 14px;
+
+        padding: 0 16px;
+
+        font-size: 19px;
+      }
+
+
+      input[type="date"] {
+        padding-left: 16px;
+      }
+
+
+      input[type="date"]::-webkit-date-and-time-value {
+        text-align: left;
+      }
+
+
+      input[type="date"]::-webkit-calendar-picker-indicator {
+        width: 22px;
+        height: 22px;
+      }
+
+
+      #verifyButton {
+        min-height: 58px;
+
+        border-radius: 14px;
+
+        font-size: 20px;
+
+        padding: 10px 14px;
+      }
+
+
+      .status {
+        font-size: 18px;
+
+        margin-top: 18px;
+      }
+
+
+      .result {
+        margin-top: 22px;
+
+        padding: 22px 16px;
+      }
+
+
+      .result-title {
+        font-size: 22px;
+      }
+
+
+      .employee-name {
+        font-size: 21px;
+      }
+    }
+
+
+    /* =========================================
+       SMALL PHONE
+    ========================================= */
+
+    @media (max-width: 380px) {
+
+      .card {
+        padding-left: 18px;
+        padding-right: 18px;
+      }
+
+
+      .title {
         font-size: 30px;
       }
 
-      .description {
-        font-size: 19px;
-        line-height: 1.5;
+
+      .subtitle {
+        font-size: 18px;
       }
+
+
+      .heading {
+        font-size: 25px;
+      }
+
+
+      .description {
+        font-size: 17px;
+      }
+
 
       label {
-        font-size: 23px;
+        font-size: 19px;
       }
+
 
       input {
-        height: 70px;
-        font-size: 22px;
-        padding: 12px 18px;
+        height: 56px;
+
+        font-size: 18px;
       }
 
-      button {
-        height: 72px;
-        font-size: 24px;
-      }
 
-      .status {
-        font-size: 20px;
-      }
+      #verifyButton {
+        min-height: 56px;
 
-      .employee-name {
-        font-size: 24px;
+        font-size: 18px;
       }
     }
 
@@ -214,398 +598,478 @@
 
 <body>
 
-  <div class="card">
+  <main class="page">
 
-    <div class="title">
-      Securitas People
-    </div>
+    <section class="card">
 
-    <div class="subtitle">
-      Employee Verification
-    </div>
+      <!-- =====================================
+           HEADER
+      ====================================== -->
 
-    <div class="line"></div>
-
-    <div class="heading">
-      🔐 ยืนยันตัวตนพนักงาน
-    </div>
-
-    <div class="description">
-      กรุณากรอกข้อมูลให้ตรงกับข้อมูลที่ลงทะเบียนไว้กับบริษัท
-    </div>
-
-
-    <!-- Employee ID -->
-
-    <label for="employeeId">
-      Employee ID
-    </label>
-
-    <input
-      id="employeeId"
-      type="text"
-      placeholder="เช่น TH10200146"
-      autocomplete="off"
-      autocapitalize="characters"
-    >
-
-
-    <!-- Date of Birth -->
-
-    <label for="dob">
-      วันเดือนปีเกิด
-    </label>
-
-    <input
-      id="dob"
-      type="date"
-    >
-
-
-    <!-- Verify Button -->
-
-    <button
-      id="verifyButton"
-      type="button"
-      onclick="verifyEmployee()"
-    >
-      ยืนยันตัวตน / Verify Identity
-    </button>
-
-
-    <!-- Status -->
-
-    <div
-      id="status"
-      class="status"
-    ></div>
-
-
-    <!-- Result -->
-
-    <div
-      id="result"
-      class="result"
-    >
-
-      <div class="result-title">
-        ✅ ยืนยันตัวตนสำเร็จ
+      <div class="title">
+        Securitas People
       </div>
 
+
+      <div class="subtitle">
+        Employee Verification
+      </div>
+
+
+      <div class="line"></div>
+
+
+      <!-- =====================================
+           HEADING
+      ====================================== -->
+
+      <div class="heading">
+        🔐 ยืนยันตัวตนพนักงาน
+      </div>
+
+
+      <div class="description">
+        กรุณากรอกข้อมูลให้ตรงกับข้อมูลที่ลงทะเบียนไว้กับบริษัท
+      </div>
+
+
+      <!-- =====================================
+           EMPLOYEE ID
+      ====================================== -->
+
+      <div class="form-group">
+
+        <label for="employeeId">
+          Employee ID
+        </label>
+
+
+        <input
+          id="employeeId"
+          type="text"
+          placeholder="เช่น TH10200146"
+          autocomplete="off"
+          autocapitalize="characters"
+          spellcheck="false"
+        >
+
+      </div>
+
+
+      <!-- =====================================
+           DATE OF BIRTH
+      ====================================== -->
+
+      <div class="form-group">
+
+        <label for="dob">
+          วันเดือนปีเกิด
+        </label>
+
+
+        <input
+          id="dob"
+          type="date"
+          autocomplete="bday"
+        >
+
+      </div>
+
+
+      <!-- =====================================
+           VERIFY BUTTON
+      ====================================== -->
+
+      <button
+        id="verifyButton"
+        type="button"
+        onclick="verifyEmployee()"
+      >
+        ยืนยันตัวตน / Verify Identity
+      </button>
+
+
+      <!-- =====================================
+           STATUS
+      ====================================== -->
+
       <div
-        id="employeeName"
-        class="employee-name"
+        id="status"
+        class="status"
       ></div>
 
-    </div>
 
-  </div>
+      <!-- =====================================
+           RESULT
+      ====================================== -->
+
+      <div
+        id="result"
+        class="result"
+      >
+
+        <div class="result-title">
+          ✅ ยืนยันตัวตนสำเร็จ
+        </div>
+
+
+        <div
+          id="employeeName"
+          class="employee-name"
+        ></div>
+
+      </div>
+
+    </section>
+
+  </main>
 
 
   <script>
 
-    /*
-     * =====================================================
-     * GOOGLE APPS SCRIPT WEB APP URL
-     * =====================================================
-     */
+    /* =========================================
+       GOOGLE APPS SCRIPT
+    ========================================= */
 
     const GOOGLE_SCRIPT_URL =
-      "https://script.google.com/macros/s/AKfycbzVYaICkM0zX5gV4B9kuQRPOrApCn6wXZnozIkH8waNPVbuaB8uLZNK_4DWhj2hwto/exec";
+      'https://script.google.com/macros/s/AKfycbzVYaICkM0zX5gV4B9kuQRPOrApCn6wXZnozIkH8waNPVbuaB8uLZNK_4DWhj2hwto/exec';
 
 
-    /*
-     * =====================================================
-     * VERIFY EMPLOYEE
-     * =====================================================
-     */
+    /* =========================================
+       ELEMENTS
+    ========================================= */
+
+    const employeeIdInput =
+      document.getElementById('employeeId');
+
+
+    const dobInput =
+      document.getElementById('dob');
+
+
+    const verifyButton =
+      document.getElementById('verifyButton');
+
+
+    const statusElement =
+      document.getElementById('status');
+
+
+    const resultElement =
+      document.getElementById('result');
+
+
+    const employeeNameElement =
+      document.getElementById('employeeName');
+
+
+    /* =========================================
+       SHOW STATUS
+    ========================================= */
+
+    function showStatus(message, type) {
+
+      statusElement.textContent = message;
+
+      statusElement.className =
+        'status ' + type;
+    }
+
+
+    /* =========================================
+       HIDE RESULT
+    ========================================= */
+
+    function hideResult() {
+
+      resultElement.classList.remove('show');
+
+      employeeNameElement.textContent = '';
+    }
+
+
+    /* =========================================
+       SHOW RESULT
+    ========================================= */
+
+    function showResult(name) {
+
+      employeeNameElement.textContent =
+        'ชื่อพนักงาน: ' + name;
+
+      resultElement.classList.add('show');
+    }
+
+
+    /* =========================================
+       VERIFY EMPLOYEE
+    ========================================= */
 
     function verifyEmployee() {
 
       const employeeId =
-        document
-          .getElementById("employeeId")
-          .value
+        employeeIdInput.value
           .trim()
           .toUpperCase();
 
 
       const dob =
-        document
-          .getElementById("dob")
-          .value;
+        dobInput.value.trim();
 
 
-      const button =
-        document.getElementById("verifyButton");
+      hideResult();
 
 
-      const status =
-        document.getElementById("status");
-
-
-      const result =
-        document.getElementById("result");
-
-
-      const employeeName =
-        document.getElementById("employeeName");
-
-
-      /*
-       * ล้างผลเดิม
-       */
-
-      status.textContent = "";
-      status.className = "status";
-
-      result.style.display = "none";
-      employeeName.textContent = "";
-
-
-      /*
-       * ตรวจ Employee ID
-       */
+      /* -----------------------------------------
+         VALIDATE
+      ----------------------------------------- */
 
       if (!employeeId) {
 
-        status.textContent =
-          "กรุณากรอก Employee ID";
+        showStatus(
+          'กรุณากรอก Employee ID',
+          'error'
+        );
 
-        status.className =
-          "status error";
+        employeeIdInput.focus();
 
         return;
       }
 
-
-      /*
-       * ตรวจวันเกิด
-       */
 
       if (!dob) {
 
-        status.textContent =
-          "กรุณาเลือกวันเดือนปีเกิด";
+        showStatus(
+          'กรุณาเลือกวันเดือนปีเกิด',
+          'error'
+        );
 
-        status.className =
-          "status error";
+        dobInput.focus();
 
         return;
       }
 
 
-      /*
-       * ป้องกันการกดปุ่มซ้ำ
-       */
+      /* -----------------------------------------
+         LOADING
+      ----------------------------------------- */
 
-      button.disabled = true;
+      verifyButton.disabled = true;
 
-      button.textContent =
-        "กำลังตรวจสอบ...";
-
-
-      status.textContent =
-        "กำลังตรวจสอบข้อมูล...";
-
-      status.className =
-        "status";
+      verifyButton.textContent =
+        'กำลังตรวจสอบ...';
 
 
-      /*
-       * สร้างชื่อ callback
-       */
+      showStatus(
+        'กำลังตรวจสอบข้อมูล...',
+        'loading'
+      );
+
+
+      /* -----------------------------------------
+         JSONP CALLBACK NAME
+      ----------------------------------------- */
 
       const callbackName =
-        "kycCallback_" + Date.now();
+        'kycCallback_' +
+        Date.now() +
+        '_' +
+        Math.floor(Math.random() * 100000);
 
 
-      /*
-       * =================================================
-       * รับผลจาก Google Apps Script
-       * =================================================
-       */
+      /* -----------------------------------------
+         CREATE SCRIPT
+      ----------------------------------------- */
+
+      const script =
+        document.createElement('script');
+
+
+      /* -----------------------------------------
+         CLEANUP
+      ----------------------------------------- */
+
+      let finished = false;
+
+
+      const cleanup = function() {
+
+        if (finished) {
+          return;
+        }
+
+        finished = true;
+
+
+        verifyButton.disabled = false;
+
+        verifyButton.textContent =
+          'ยืนยันตัวตน / Verify Identity';
+
+
+        if (script.parentNode) {
+
+          script.parentNode.removeChild(script);
+        }
+
+
+        try {
+
+          delete window[callbackName];
+
+        } catch (error) {
+
+          window[callbackName] =
+            undefined;
+        }
+      };
+
+
+      /* -----------------------------------------
+         SUCCESS CALLBACK
+      ----------------------------------------- */
 
       window[callbackName] =
         function(data) {
 
-          /*
-           * ลบ script เดิม
-           */
+          cleanup();
 
-          const oldScript =
-            document.getElementById("kyc-jsonp");
 
-          if (oldScript) {
-            oldScript.remove();
+          if (!data) {
+
+            showStatus(
+              'ไม่พบผลการตรวจสอบ',
+              'error'
+            );
+
+            return;
           }
 
 
-          /*
-           * คืนค่าปุ่ม
-           */
+          if (data.success) {
 
-          button.disabled = false;
-
-          button.textContent =
-            "ยืนยันตัวตน / Verify Identity";
+            showStatus(
+              'ยืนยันตัวตนสำเร็จ',
+              'success'
+            );
 
 
-          /*
-           * ตรวจผลลัพธ์
-           */
-
-          if (
-            data &&
-            data.success === true
-          ) {
-
-            status.textContent =
-              data.message ||
-              "ยืนยันตัวตนสำเร็จ";
-
-            status.className =
-              "status success";
-
-
-            /*
-             * แสดงชื่อพนักงาน
-             */
-
-            if (data.name) {
-
-              employeeName.textContent =
-                "ชื่อพนักงาน: " + data.name;
-
-            } else {
-
-              employeeName.textContent =
-                "ยืนยัน Employee ID: " +
-                data.employeeId;
-
-            }
-
-
-            result.style.display =
-              "block";
-
+            showResult(
+              data.name || ''
+            );
 
           } else {
 
-            status.textContent =
-              data && data.message
-                ? data.message
-                : "ไม่พบข้อมูลที่ตรงกัน";
-
-            status.className =
-              "status error";
-
+            showStatus(
+              data.message ||
+              'ไม่พบข้อมูลที่ตรงกัน',
+              'error'
+            );
           }
-
-
-          /*
-           * ลบ callback
-           */
-
-          try {
-
-            delete window[callbackName];
-
-          } catch (e) {
-
-            window[callbackName] =
-              undefined;
-
-          }
-
         };
 
 
-      /*
-       * =================================================
-       * สร้าง URL สำหรับ JSONP
-       * =================================================
-       */
-
-      const url =
-        GOOGLE_SCRIPT_URL +
-        "?callback=" +
-        encodeURIComponent(callbackName) +
-        "&employeeId=" +
-        encodeURIComponent(employeeId) +
-        "&dob=" +
-        encodeURIComponent(dob);
-
-
-      /*
-       * สร้าง script
-       */
-
-      const script =
-        document.createElement("script");
-
-
-      script.id =
-        "kyc-jsonp";
-
-
-      script.src =
-        url;
-
-
-      /*
-       * กรณีเชื่อมต่อไม่ได้
-       */
+      /* -----------------------------------------
+         ERROR / TIMEOUT
+      ----------------------------------------- */
 
       script.onerror =
         function() {
 
-          const oldScript =
-            document.getElementById("kyc-jsonp");
-
-          if (oldScript) {
-            oldScript.remove();
-          }
+          cleanup();
 
 
-          button.disabled = false;
-
-          button.textContent =
-            "ยืนยันตัวตน / Verify Identity";
-
-
-          status.textContent =
-            "ไม่สามารถเชื่อมต่อระบบตรวจสอบได้";
-
-
-          status.className =
-            "status error";
-
-
-          try {
-
-            delete window[callbackName];
-
-          } catch (e) {
-
-            window[callbackName] =
-              undefined;
-
-          }
-
+          showStatus(
+            'ไม่สามารถเชื่อมต่อระบบตรวจสอบได้',
+            'error'
+          );
         };
 
 
-      /*
-       * ส่งคำขอไป Google Apps Script
-       */
+      const timeout =
+        setTimeout(function() {
+
+          if (!finished) {
+
+            cleanup();
+
+
+            showStatus(
+              'ระบบใช้เวลาตรวจสอบนานเกินไป กรุณาลองใหม่',
+              'error'
+            );
+          }
+
+        }, 15000);
+
+
+      /* -----------------------------------------
+         BUILD URL
+      ----------------------------------------- */
+
+      const url =
+        GOOGLE_SCRIPT_URL +
+        '?employeeId=' +
+        encodeURIComponent(employeeId) +
+        '&dob=' +
+        encodeURIComponent(dob) +
+        '&callback=' +
+        encodeURIComponent(callbackName);
+
+
+      /* -----------------------------------------
+         SCRIPT LOAD
+      ----------------------------------------- */
+
+      script.src = url;
+
+      script.async = true;
+
+
+      /* -----------------------------------------
+         APPEND
+      ----------------------------------------- */
 
       document.body.appendChild(script);
 
     }
 
+
+    /* =========================================
+       ENTER KEY
+    ========================================= */
+
+    employeeIdInput.addEventListener(
+      'keydown',
+      function(event) {
+
+        if (event.key === 'Enter') {
+
+          event.preventDefault();
+
+          dobInput.focus();
+        }
+
+      }
+    );
+
+
+    dobInput.addEventListener(
+      'keydown',
+      function(event) {
+
+        if (event.key === 'Enter') {
+
+          event.preventDefault();
+
+          verifyEmployee();
+        }
+
+      }
+    );
+
+
   </script>
 
 </body>
-
 </html>
