@@ -1,21 +1,25 @@
 <!DOCTYPE html>
 <html lang="th">
+
 <head>
 
   <meta charset="UTF-8">
 
   <meta
     name="viewport"
-    content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
+    content="width=device-width, initial-scale=1.0"
   >
 
   <title>Securitas People KYC</title>
 
-  <style>
 
-    /* =========================================
-       RESET
-    ========================================= */
+  <!-- LINE LIFF SDK -->
+  <script
+    src="https://static.line-scdn.net/liff/edge/2/sdk.js"
+  ></script>
+
+
+  <style>
 
     * {
       box-sizing: border-box;
@@ -28,357 +32,204 @@
       padding: 0;
       width: 100%;
       min-height: 100%;
+      font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        Arial,
+        "Noto Sans Thai",
+        sans-serif;
+      background: #f4f6f8;
+      color: #171717;
     }
 
 
     body {
-      font-family:
-        Arial,
-        "Noto Sans Thai",
-        "Tahoma",
-        sans-serif;
-
-      background: #f4f6f8;
-      color: #222;
-
-      -webkit-font-smoothing: antialiased;
-    }
-
-
-    /* =========================================
-       PAGE
-    ========================================= */
-
-    .page {
-      width: 100%;
-      min-height: 100vh;
-
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-
-      padding: 24px 16px 40px;
+      padding: 18px 12px 40px;
     }
 
-
-    /* =========================================
-       CARD
-    ========================================= */
 
     .card {
       width: 100%;
-      max-width: 760px;
-
+      max-width: 780px;
       background: #ffffff;
-
       border-radius: 24px;
-
       padding: 38px 42px 42px;
-
       box-shadow:
-        0 8px 30px rgba(0, 0, 0, 0.08);
+        0 10px 35px rgba(0, 0, 0, 0.08);
     }
 
 
-    /* =========================================
+    /* =====================================================
        HEADER
-    ========================================= */
+       ===================================================== */
 
-    .title {
+    .brand {
       text-align: center;
-
-      font-size: 46px;
-      font-weight: 700;
-
-      line-height: 1.15;
-
-      color: #111;
-
-      margin-bottom: 8px;
     }
 
 
-    .subtitle {
-      text-align: center;
+    .brand-title {
+      font-size: clamp(38px, 7vw, 58px);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -1px;
+    }
 
-      font-size: 25px;
 
-      line-height: 1.3;
-
-      color: #687386;
-
-      margin-bottom: 28px;
+    .brand-subtitle {
+      margin-top: 8px;
+      font-size: clamp(22px, 4vw, 30px);
+      color: #68758c;
+      font-weight: 400;
     }
 
 
     .line {
-      width: 100%;
+      width: 92%;
       height: 1px;
-
-      background: #a8a8a8;
-
-      margin-bottom: 34px;
+      background: #999;
+      margin: 38px auto 42px;
     }
 
 
-    /* =========================================
+    /* =====================================================
        HEADING
-    ========================================= */
+       ===================================================== */
 
     .heading {
       text-align: center;
-
-      font-size: 34px;
-      font-weight: 700;
-
+      font-size: clamp(30px, 6vw, 48px);
+      font-weight: 800;
       line-height: 1.3;
-
-      margin-bottom: 18px;
-
-      color: #111;
+      margin-bottom: 22px;
     }
 
 
     .description {
       text-align: center;
-
-      font-size: 21px;
-
-      line-height: 1.55;
-
-      color: #555;
-
-      margin-bottom: 34px;
+      color: #666;
+      font-size: clamp(20px, 4vw, 28px);
+      line-height: 1.65;
+      margin-bottom: 48px;
     }
 
 
-    /* =========================================
+    /* =====================================================
        FORM
-    ========================================= */
-
-    .form-group {
-      margin-bottom: 24px;
-    }
-
+       ===================================================== */
 
     label {
       display: block;
-
-      font-size: 22px;
-
+      font-size: clamp(24px, 4.5vw, 32px);
       font-weight: 700;
-
-      line-height: 1.3;
-
-      margin-bottom: 10px;
-
-      color: #171717;
+      margin: 0 0 12px;
     }
 
-
-    /* =========================================
-       INPUT
-    ========================================= */
 
     input {
       display: block;
-
       width: 100%;
-
-      height: 64px;
-
-      padding: 0 18px;
-
-      border: 1px solid #c9c9c9;
-
-      border-radius: 16px;
-
+      height: 86px;
+      border: 1.5px solid #c9c9c9;
+      border-radius: 20px;
       background: #ffffff;
-
+      padding: 0 24px;
+      font-size: clamp(24px, 5vw, 34px);
       color: #222;
-
-      font-family: inherit;
-
-      font-size: 20px;
-
-      line-height: 1;
-
       outline: none;
-
-      -webkit-appearance: none;
-      appearance: none;
-
-      transition:
-        border-color 0.15s ease,
-        box-shadow 0.15s ease;
-    }
-
-
-    input::placeholder {
-      color: #8a8a8a;
+      margin-bottom: 32px;
     }
 
 
     input:focus {
-      border-color: #3bc84a;
-
+      border-color: #36c84a;
       box-shadow:
-        0 0 0 3px rgba(59, 200, 74, 0.12);
+        0 0 0 3px rgba(54, 200, 74, 0.12);
     }
 
-
-    /* =========================================
-       DATE INPUT
-    ========================================= */
 
     input[type="date"] {
-      text-align: left;
-
-      padding-left: 18px;
-      padding-right: 14px;
-
-      color: #222;
+      font-family: inherit;
     }
 
 
-    /*
-      ป้องกัน iPhone บางรุ่นจัดวันที่กึ่งกลาง
-      และทำให้ช่องวันเกิดดูสูงเกินไป
-    */
-
-    input[type="date"]::-webkit-date-and-time-value {
-      text-align: left;
-      min-height: 1.2em;
-    }
-
-
-    input[type="date"]::-webkit-calendar-picker-indicator {
-      width: 24px;
-      height: 24px;
-
-      margin-left: 8px;
-
-      cursor: pointer;
-
-      opacity: 0.9;
-    }
-
-
-    /* =========================================
+    /* =====================================================
        BUTTON
-    ========================================= */
+       ===================================================== */
 
     #verifyButton {
+      display: block;
       width: 100%;
-
-      min-height: 64px;
-
-      margin-top: 6px;
-
-      padding: 12px 18px;
-
-      border: none;
-
-      border-radius: 16px;
-
-      background: #3bc84a;
-
+      min-height: 94px;
+      border: 0;
+      border-radius: 22px;
+      background: #39c94a;
       color: #ffffff;
-
-      font-family: inherit;
-
-      font-size: 22px;
-
-      font-weight: 700;
-
-      line-height: 1.3;
-
+      font-size: clamp(25px, 5vw, 36px);
+      font-weight: 800;
       cursor: pointer;
-
-      -webkit-tap-highlight-color: transparent;
-
+      padding: 18px 20px;
+      margin-top: 8px;
       transition:
-        transform 0.1s ease,
-        background 0.15s ease;
-    }
-
-
-    #verifyButton:hover {
-      background: #31b940;
+        transform 0.15s ease,
+        opacity 0.15s ease;
     }
 
 
     #verifyButton:active {
-      transform: scale(0.99);
+      transform: scale(0.98);
     }
 
 
     #verifyButton:disabled {
-      background: #a8dbaa;
-
-      cursor: wait;
-
-      transform: none;
+      opacity: 0.6;
+      cursor: not-allowed;
     }
 
 
-    /* =========================================
+    /* =====================================================
        STATUS
-    ========================================= */
+       ===================================================== */
 
     .status {
-      display: none;
-
       text-align: center;
-
-      margin-top: 22px;
-
-      font-size: 20px;
-
-      font-weight: 600;
-
+      min-height: 42px;
+      margin-top: 28px;
+      font-size: clamp(20px, 4vw, 28px);
+      font-weight: 700;
       line-height: 1.5;
     }
 
 
-    .status.success {
-      display: block;
-
-      color: #168b2c;
-    }
-
-
-    .status.error {
-      display: block;
-
-      color: #d92d20;
-    }
-
-
     .status.loading {
-      display: block;
-
       color: #666;
     }
 
 
-    /* =========================================
+    .status.error {
+      color: #d93025;
+    }
+
+
+    .status.success {
+      color: #168b2d;
+    }
+
+
+    /* =====================================================
        RESULT
-    ========================================= */
+       ===================================================== */
 
     .result {
       display: none;
-
-      margin-top: 26px;
-
-      padding: 26px 20px;
-
-      border: 2px solid #58d36a;
-
-      border-radius: 18px;
-
+      margin-top: 28px;
+      padding: 30px 24px;
+      border: 3px solid #55d46a;
+      border-radius: 24px;
       background: #effcf1;
-
       text-align: center;
     }
 
@@ -389,205 +240,117 @@
 
 
     .result-title {
-      font-size: 25px;
-
-      font-weight: 700;
-
+      color: #148b2c;
+      font-size: clamp(26px, 5vw, 38px);
+      font-weight: 800;
       line-height: 1.4;
+      margin-bottom: 20px;
+    }
 
-      color: #168b2c;
 
-      margin-bottom: 16px;
+    .employee-name-label {
+      font-size: clamp(21px, 4vw, 28px);
+      font-weight: 600;
+      margin-bottom: 8px;
     }
 
 
     .employee-name {
-      font-size: 24px;
-
-      font-weight: 700;
-
-      line-height: 1.5;
-
-      color: #222;
+      font-size: clamp(27px, 5vw, 38px);
+      font-weight: 800;
+      line-height: 1.4;
+      word-break: break-word;
     }
 
 
-    /* =========================================
+    .line-user-info {
+      margin-top: 20px;
+      color: #666;
+      font-size: 14px;
+      word-break: break-all;
+    }
+
+
+    /* =====================================================
        MOBILE
-    ========================================= */
+       ===================================================== */
 
     @media (max-width: 600px) {
 
-      .page {
-        padding: 12px 10px 28px;
+      body {
+        padding: 0;
+        background: #f4f6f8;
       }
 
 
       .card {
         max-width: 100%;
-
-        padding: 28px 22px 30px;
-
-        border-radius: 20px;
-      }
-
-
-      .title {
-        font-size: 34px;
-      }
-
-
-      .subtitle {
-        font-size: 20px;
-
-        margin-bottom: 22px;
+        min-height: 100vh;
+        border-radius: 0;
+        padding:
+          28px 22px
+          36px;
+        box-shadow: none;
       }
 
 
       .line {
-        margin-bottom: 28px;
+        width: 90%;
+        margin:
+          30px auto
+          34px;
       }
 
 
       .heading {
-        font-size: 28px;
-
-        margin-bottom: 14px;
+        margin-bottom: 18px;
       }
 
 
       .description {
-        font-size: 18px;
-
-        line-height: 1.5;
-
-        margin-bottom: 28px;
-      }
-
-
-      label {
-        font-size: 20px;
-
-        margin-bottom: 9px;
-      }
-
-
-      .form-group {
-        margin-bottom: 20px;
+        margin-bottom: 38px;
       }
 
 
       input {
-        height: 58px;
-
-        border-radius: 14px;
-
-        padding: 0 16px;
-
-        font-size: 19px;
-      }
-
-
-      input[type="date"] {
-        padding-left: 16px;
-      }
-
-
-      input[type="date"]::-webkit-date-and-time-value {
-        text-align: left;
-      }
-
-
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        width: 22px;
-        height: 22px;
+        height: 78px;
+        border-radius: 18px;
+        padding: 0 20px;
+        margin-bottom: 28px;
       }
 
 
       #verifyButton {
-        min-height: 58px;
-
-        border-radius: 14px;
-
-        font-size: 20px;
-
-        padding: 10px 14px;
-      }
-
-
-      .status {
-        font-size: 18px;
-
-        margin-top: 18px;
+        min-height: 82px;
+        border-radius: 20px;
       }
 
 
       .result {
-        margin-top: 22px;
-
-        padding: 22px 16px;
-      }
-
-
-      .result-title {
-        font-size: 22px;
-      }
-
-
-      .employee-name {
-        font-size: 21px;
+        padding: 26px 18px;
       }
     }
 
 
-    /* =========================================
+    /* =====================================================
        SMALL PHONE
-    ========================================= */
+       ===================================================== */
 
-    @media (max-width: 380px) {
+    @media (max-width: 390px) {
 
       .card {
-        padding-left: 18px;
-        padding-right: 18px;
-      }
-
-
-      .title {
-        font-size: 30px;
-      }
-
-
-      .subtitle {
-        font-size: 18px;
-      }
-
-
-      .heading {
-        font-size: 25px;
-      }
-
-
-      .description {
-        font-size: 17px;
-      }
-
-
-      label {
-        font-size: 19px;
+        padding-left: 17px;
+        padding-right: 17px;
       }
 
 
       input {
-        height: 56px;
-
-        font-size: 18px;
+        height: 72px;
       }
 
 
       #verifyButton {
-        min-height: 56px;
-
-        font-size: 18px;
+        min-height: 76px;
       }
     }
 
@@ -598,240 +361,304 @@
 
 <body>
 
-  <main class="page">
 
-    <section class="card">
+  <div class="card">
 
-      <!-- =====================================
-           HEADER
-      ====================================== -->
 
-      <div class="title">
+    <!-- ===================================================
+         HEADER
+         =================================================== -->
+
+    <div class="brand">
+
+      <div class="brand-title">
         Securitas People
       </div>
 
-
-      <div class="subtitle">
+      <div class="brand-subtitle">
         Employee Verification
       </div>
 
+    </div>
 
-      <div class="line"></div>
+
+    <div class="line"></div>
 
 
-      <!-- =====================================
-           HEADING
-      ====================================== -->
+    <!-- ===================================================
+         KYC HEADING
+         =================================================== -->
 
-      <div class="heading">
-        🔐 ยืนยันตัวตนพนักงาน
+    <div class="heading">
+      🔐 ยืนยันตัวตนพนักงาน
+    </div>
+
+
+    <div class="description">
+      กรุณากรอกข้อมูลให้ตรงกับข้อมูลที่ลงทะเบียนไว้กับบริษัท
+    </div>
+
+
+    <!-- ===================================================
+         EMPLOYEE ID
+         =================================================== -->
+
+    <label for="employeeId">
+      Employee ID
+    </label>
+
+
+    <input
+      id="employeeId"
+      type="text"
+      placeholder="เช่น TH10200146"
+      autocomplete="off"
+      autocapitalize="characters"
+      spellcheck="false"
+    >
+
+
+    <!-- ===================================================
+         DATE OF BIRTH
+         =================================================== -->
+
+    <label for="dob">
+      วันเดือนปีเกิด
+    </label>
+
+
+    <input
+      id="dob"
+      type="date"
+      autocomplete="bday"
+    >
+
+
+    <!-- ===================================================
+         VERIFY BUTTON
+         =================================================== -->
+
+    <button
+      id="verifyButton"
+      type="button"
+      onclick="verifyEmployee()"
+    >
+      ยืนยันตัวตน / Verify Identity
+    </button>
+
+
+    <!-- ===================================================
+         STATUS
+         =================================================== -->
+
+    <div
+      id="status"
+      class="status"
+    ></div>
+
+
+    <!-- ===================================================
+         RESULT
+         =================================================== -->
+
+    <div
+      id="result"
+      class="result"
+    >
+
+      <div class="result-title">
+        ✅ ยืนยันตัวตนสำเร็จ
       </div>
 
 
-      <div class="description">
-        กรุณากรอกข้อมูลให้ตรงกับข้อมูลที่ลงทะเบียนไว้กับบริษัท
+      <div class="employee-name-label">
+        ชื่อพนักงาน:
       </div>
 
-
-      <!-- =====================================
-           EMPLOYEE ID
-      ====================================== -->
-
-      <div class="form-group">
-
-        <label for="employeeId">
-          Employee ID
-        </label>
-
-
-        <input
-          id="employeeId"
-          type="text"
-          placeholder="เช่น TH10200146"
-          autocomplete="off"
-          autocapitalize="characters"
-          spellcheck="false"
-        >
-
-      </div>
-
-
-      <!-- =====================================
-           DATE OF BIRTH
-      ====================================== -->
-
-      <div class="form-group">
-
-        <label for="dob">
-          วันเดือนปีเกิด
-        </label>
-
-
-        <input
-          id="dob"
-          type="date"
-          autocomplete="bday"
-        >
-
-      </div>
-
-
-      <!-- =====================================
-           VERIFY BUTTON
-      ====================================== -->
-
-      <button
-        id="verifyButton"
-        type="button"
-        onclick="verifyEmployee()"
-      >
-        ยืนยันตัวตน / Verify Identity
-      </button>
-
-
-      <!-- =====================================
-           STATUS
-      ====================================== -->
 
       <div
-        id="status"
-        class="status"
+        id="employeeName"
+        class="employee-name"
       ></div>
 
 
-      <!-- =====================================
-           RESULT
-      ====================================== -->
-
+      <!-- ใช้ตรวจสอบตอนพัฒนา
+           ไม่แสดง LINE User ID ต่อผู้ใช้ -->
       <div
-        id="result"
-        class="result"
-      >
+        id="lineUserInfo"
+        class="line-user-info"
+        style="display:none;"
+      ></div>
 
-        <div class="result-title">
-          ✅ ยืนยันตัวตนสำเร็จ
-        </div>
+    </div>
 
 
-        <div
-          id="employeeName"
-          class="employee-name"
-        ></div>
+  </div>
 
-      </div>
-
-    </section>
-
-  </main>
 
 
   <script>
 
-    /* =========================================
-       GOOGLE APPS SCRIPT
-    ========================================= */
+    /********************************************************
+     * CONFIGURATION
+     ********************************************************/
 
-    const GOOGLE_SCRIPT_URL =
+
+    const LIFF_ID =
+      '2011060843-6rwH2ZRD';
+
+
+    const GAS_URL =
       'https://script.google.com/macros/s/AKfycbzVYaICkM0zX5gV4B9kuQRPOrApCn6wXZnozIkH8waNPVbuaB8uLZNK_4DWhj2hwto/exec';
 
 
-    /* =========================================
-       ELEMENTS
-    ========================================= */
 
-    const employeeIdInput =
-      document.getElementById('employeeId');
+    /********************************************************
+     * GLOBAL
+     ********************************************************/
 
-
-    const dobInput =
-      document.getElementById('dob');
+    let liffProfile = null;
 
 
-    const verifyButton =
-      document.getElementById('verifyButton');
+
+    /********************************************************
+     * PAGE LOAD
+     ********************************************************/
+
+    window.addEventListener(
+      'load',
+      initLIFF
+    );
 
 
-    const statusElement =
-      document.getElementById('status');
+
+    /********************************************************
+     * INITIALIZE LIFF
+     ********************************************************/
+
+    async function initLIFF() {
+
+      setStatus(
+        'กำลังเชื่อมต่อ LINE...',
+        'loading'
+      );
 
 
-    const resultElement =
-      document.getElementById('result');
+      try {
+
+        await liff.init({
+          liffId: LIFF_ID
+        });
 
 
-    const employeeNameElement =
-      document.getElementById('employeeName');
+        /*
+         * ถ้าเปิดจาก browser ภายนอก LINE
+         * และยังไม่ได้ login
+         */
+
+        if (!liff.isLoggedIn()) {
+
+          /*
+           * ให้ผู้ใช้ Login LINE
+           */
+
+          liff.login();
+
+          return;
+        }
 
 
-    /* =========================================
-       SHOW STATUS
-    ========================================= */
+        /*
+         * ดึง LINE Profile
+         */
 
-    function showStatus(message, type) {
+        liffProfile =
+          await liff.getProfile();
 
-      statusElement.textContent = message;
 
-      statusElement.className =
-        'status ' + type;
+        if (!liffProfile) {
+
+          throw new Error(
+            'ไม่สามารถอ่าน LINE Profile ได้'
+          );
+        }
+
+
+        setStatus(
+          'พร้อมยืนยันตัวตน',
+          'success'
+        );
+
+
+      } catch (error) {
+
+        console.error(
+          'LIFF initialization error:',
+          error
+        );
+
+
+        setStatus(
+          'ไม่สามารถเชื่อมต่อ LINE ได้ กรุณาเปิดผ่าน LINE อีกครั้ง',
+          'error'
+        );
+      }
     }
 
 
-    /* =========================================
-       HIDE RESULT
-    ========================================= */
 
-    function hideResult() {
-
-      resultElement.classList.remove('show');
-
-      employeeNameElement.textContent = '';
-    }
-
-
-    /* =========================================
-       SHOW RESULT
-    ========================================= */
-
-    function showResult(name) {
-
-      employeeNameElement.textContent =
-        'ชื่อพนักงาน: ' + name;
-
-      resultElement.classList.add('show');
-    }
-
-
-    /* =========================================
-       VERIFY EMPLOYEE
-    ========================================= */
+    /********************************************************
+     * VERIFY EMPLOYEE
+     ********************************************************/
 
     function verifyEmployee() {
 
+
       const employeeId =
-        employeeIdInput.value
+        document
+          .getElementById('employeeId')
+          .value
           .trim()
           .toUpperCase();
 
 
       const dob =
-        dobInput.value.trim();
+        document
+          .getElementById('dob')
+          .value
+          .trim();
 
 
-      hideResult();
+      const button =
+        document
+          .getElementById('verifyButton');
 
 
-      /* -----------------------------------------
-         VALIDATE
-      ----------------------------------------- */
+      const resultBox =
+        document
+          .getElementById('result');
+
+
+      const employeeName =
+        document
+          .getElementById('employeeName');
+
+
+
+      /*
+       * ตรวจข้อมูล
+       */
 
       if (!employeeId) {
 
-        showStatus(
+        setStatus(
           'กรุณากรอก Employee ID',
           'error'
         );
 
-        employeeIdInput.focus();
+        document
+          .getElementById('employeeId')
+          .focus();
 
         return;
       }
@@ -839,106 +666,122 @@
 
       if (!dob) {
 
-        showStatus(
+        setStatus(
           'กรุณาเลือกวันเดือนปีเกิด',
           'error'
         );
 
-        dobInput.focus();
+        document
+          .getElementById('dob')
+          .focus();
 
         return;
       }
 
 
-      /* -----------------------------------------
-         LOADING
-      ----------------------------------------- */
 
-      verifyButton.disabled = true;
+      /*
+       * ตรวจ LIFF
+       */
 
-      verifyButton.textContent =
+      if (!liffProfile) {
+
+        setStatus(
+          'ยังไม่ได้เชื่อมต่อ LINE กรุณารอสักครู่แล้วลองใหม่',
+          'error'
+        );
+
+        return;
+      }
+
+
+
+      /*
+       * LINE User ID
+       */
+
+      const userId =
+        liffProfile.userId || '';
+
+
+      const lineName =
+        liffProfile.displayName || '';
+
+
+
+      if (!userId) {
+
+        setStatus(
+          'ไม่พบ LINE User ID กรุณาเปิด KYC ผ่าน LINE',
+          'error'
+        );
+
+        return;
+      }
+
+
+
+      /*
+       * ปิดผลลัพธ์เดิม
+       */
+
+      resultBox
+        .classList
+        .remove('show');
+
+
+      employeeName.textContent =
+        '';
+
+
+
+      /*
+       * Loading
+       */
+
+      button.disabled = true;
+
+      button.textContent =
         'กำลังตรวจสอบ...';
 
 
-      showStatus(
+      setStatus(
         'กำลังตรวจสอบข้อมูล...',
         'loading'
       );
 
 
-      /* -----------------------------------------
-         JSONP CALLBACK NAME
-      ----------------------------------------- */
 
-      const callbackName =
-        'kycCallback_' +
-        Date.now() +
-        '_' +
-        Math.floor(Math.random() * 100000);
+      /*
+       * เรียก Google Apps Script
+       */
 
+      callGoogleAppsScript(
+        employeeId,
+        dob,
+        userId,
+        lineName,
+        function(response) {
 
-      /* -----------------------------------------
-         CREATE SCRIPT
-      ----------------------------------------- */
+          /*
+           * เปิดปุ่มกลับ
+           */
 
-      const script =
-        document.createElement('script');
+          button.disabled = false;
 
-
-      /* -----------------------------------------
-         CLEANUP
-      ----------------------------------------- */
-
-      let finished = false;
+          button.textContent =
+            'ยืนยันตัวตน / Verify Identity';
 
 
-      const cleanup = function() {
 
-        if (finished) {
-          return;
-        }
+          /*
+           * ตรวจ response
+           */
 
-        finished = true;
+          if (!response) {
 
-
-        verifyButton.disabled = false;
-
-        verifyButton.textContent =
-          'ยืนยันตัวตน / Verify Identity';
-
-
-        if (script.parentNode) {
-
-          script.parentNode.removeChild(script);
-        }
-
-
-        try {
-
-          delete window[callbackName];
-
-        } catch (error) {
-
-          window[callbackName] =
-            undefined;
-        }
-      };
-
-
-      /* -----------------------------------------
-         SUCCESS CALLBACK
-      ----------------------------------------- */
-
-      window[callbackName] =
-        function(data) {
-
-          cleanup();
-
-
-          if (!data) {
-
-            showStatus(
-              'ไม่พบผลการตรวจสอบ',
+            setStatus(
+              'ระบบไม่ตอบกลับ กรุณาลองใหม่อีกครั้ง',
               'error'
             );
 
@@ -946,130 +789,317 @@
           }
 
 
-          if (data.success) {
 
-            showStatus(
+          /*
+           * KYC สำเร็จ
+           */
+
+          if (response.success) {
+
+
+            setStatus(
               'ยืนยันตัวตนสำเร็จ',
               'success'
             );
 
 
-            showResult(
-              data.name || ''
+            employeeName.textContent =
+              response.name || '';
+
+
+            resultBox
+              .classList
+              .add('show');
+
+
+            /*
+             * สำหรับ debug ตอนพัฒนา
+             *
+             * ไม่แสดงให้ user เห็น
+             */
+
+            const lineUserInfo =
+              document
+                .getElementById(
+                  'lineUserInfo'
+                );
+
+
+            lineUserInfo.textContent =
+              'LINE User ID: ' +
+              (response.lineUserId || '');
+
+
+            /*
+             * เลื่อนหน้าจอไปผลลัพธ์
+             */
+
+            setTimeout(
+              function() {
+
+                resultBox
+                  .scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                  });
+
+              },
+              100
             );
 
-          } else {
 
-            showStatus(
-              data.message ||
-              'ไม่พบข้อมูลที่ตรงกัน',
-              'error'
-            );
+            return;
+          }
+
+
+
+          /*
+           * KYC ไม่ผ่าน
+           */
+
+          setStatus(
+            response.message ||
+            'ไม่สามารถยืนยันตัวตนได้',
+            'error'
+          );
+
+        }
+      );
+    }
+
+
+
+    /********************************************************
+     * GOOGLE APPS SCRIPT JSONP
+     ********************************************************/
+
+    function callGoogleAppsScript(
+      employeeId,
+      dob,
+      userId,
+      lineName,
+      callback
+    ) {
+
+
+      /*
+       * สร้าง callback name ไม่ซ้ำ
+       */
+
+      const callbackName =
+        'kycCallback_' +
+        Date.now() +
+        '_' +
+        Math.floor(
+          Math.random() * 100000
+        );
+
+
+      /*
+       * สร้าง global callback
+       */
+
+      window[callbackName] =
+        function(response) {
+
+
+          try {
+
+            callback(response);
+
+          } finally {
+
+            /*
+             * ลบ callback หลังใช้งาน
+             */
+
+            delete window[callbackName];
+
+            const oldScript =
+              document.getElementById(
+                callbackName
+              );
+
+
+            if (oldScript) {
+
+              oldScript.remove();
+            }
           }
         };
 
 
-      /* -----------------------------------------
-         ERROR / TIMEOUT
-      ----------------------------------------- */
+
+      /*
+       * สร้าง URL
+       */
+
+      const url =
+        GAS_URL +
+        '?callback=' +
+        encodeURIComponent(
+          callbackName
+        ) +
+        '&employeeId=' +
+        encodeURIComponent(
+          employeeId
+        ) +
+        '&dob=' +
+        encodeURIComponent(
+          dob
+        ) +
+        '&userId=' +
+        encodeURIComponent(
+          userId
+        ) +
+        '&lineName=' +
+        encodeURIComponent(
+          lineName
+        );
+
+
+
+      /*
+       * สร้าง Script tag
+       */
+
+      const script =
+        document.createElement(
+          'script'
+        );
+
+
+      script.id =
+        callbackName;
+
+
+      script.src =
+        url;
+
+
+      script.async =
+        true;
+
+
+
+      /*
+       * Error
+       */
 
       script.onerror =
         function() {
 
-          cleanup();
+          delete window[callbackName];
+
+          script.remove();
 
 
-          showStatus(
-            'ไม่สามารถเชื่อมต่อระบบตรวจสอบได้',
-            'error'
-          );
+          callback({
+            success: false,
+            message:
+              'ไม่สามารถเชื่อมต่อระบบตรวจสอบได้'
+          });
         };
 
 
+
+      /*
+       * Timeout
+       */
+
       const timeout =
-        setTimeout(function() {
+        setTimeout(
+          function() {
 
-          if (!finished) {
+            if (
+              window[callbackName]
+            ) {
 
-            cleanup();
+              delete window[callbackName];
+
+              script.remove();
 
 
-            showStatus(
-              'ระบบใช้เวลาตรวจสอบนานเกินไป กรุณาลองใหม่',
-              'error'
+              callback({
+                success: false,
+                message:
+                  'ระบบตรวจสอบใช้เวลานานเกินไป กรุณาลองใหม่'
+              });
+            }
+
+          },
+          20000
+        );
+
+
+
+      /*
+       * เมื่อ callback สำเร็จ
+       * clear timeout
+       */
+
+      const originalCallback =
+        window[callbackName];
+
+
+      window[callbackName] =
+        function(response) {
+
+          clearTimeout(timeout);
+
+
+          try {
+
+            originalCallback(
+              response
             );
+
+          } catch (error) {
+
+            console.error(error);
+
           }
-
-        }, 15000);
-
-
-      /* -----------------------------------------
-         BUILD URL
-      ----------------------------------------- */
-
-      const url =
-        GOOGLE_SCRIPT_URL +
-        '?employeeId=' +
-        encodeURIComponent(employeeId) +
-        '&dob=' +
-        encodeURIComponent(dob) +
-        '&callback=' +
-        encodeURIComponent(callbackName);
+        };
 
 
-      /* -----------------------------------------
-         SCRIPT LOAD
-      ----------------------------------------- */
 
-      script.src = url;
+      /*
+       * ส่ง request
+       */
 
-      script.async = true;
-
-
-      /* -----------------------------------------
-         APPEND
-      ----------------------------------------- */
-
-      document.body.appendChild(script);
-
+      document
+        .body
+        .appendChild(script);
     }
 
 
-    /* =========================================
-       ENTER KEY
-    ========================================= */
 
-    employeeIdInput.addEventListener(
-      'keydown',
-      function(event) {
+    /********************************************************
+     * STATUS
+     ********************************************************/
 
-        if (event.key === 'Enter') {
-
-          event.preventDefault();
-
-          dobInput.focus();
-        }
-
-      }
-    );
+    function setStatus(
+      message,
+      type
+    ) {
 
 
-    dobInput.addEventListener(
-      'keydown',
-      function(event) {
+      const status =
+        document
+          .getElementById('status');
 
-        if (event.key === 'Enter') {
 
-          event.preventDefault();
+      status.textContent =
+        message;
 
-          verifyEmployee();
-        }
 
-      }
-    );
-
+      status.className =
+        'status ' +
+        (type || '');
+    }
 
   </script>
 
 </body>
+
 </html>
